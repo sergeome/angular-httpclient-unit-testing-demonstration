@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { User } from './models/user';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ export class AppComponent implements OnInit {
   public onLogin() {
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
-    this.authService.onLogin(email, password).subscribe(
+    const user = new User(email, password);
+    this.authService.onLogin(user).subscribe(
       (response: HttpResponse<any>) => {
       this.response = response;
       console.log(response);

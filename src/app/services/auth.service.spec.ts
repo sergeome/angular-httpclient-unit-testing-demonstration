@@ -4,6 +4,7 @@ import {
   HttpTestingController
 } from '@angular/common/http/testing';
 import { AuthService } from './auth.service';
+import { User } from '../models/user';
 
 describe('AuthService', () => {
   beforeEach(() => {
@@ -25,7 +26,8 @@ describe('AuthService', () => {
     inject(
       [AuthService, HttpTestingController],
       (authService: AuthService, backend: HttpTestingController) => {
-        authService.onLogin('test@example.com', 'testpassword').subscribe(
+        const user = new User('test@example.com', 'testpassword');
+        authService.onLogin(user).subscribe(
           (data: any) => {
             expect(data.success).toBe(true);
             expect(data.message).toBe('login was successful');
@@ -50,7 +52,8 @@ describe('AuthService', () => {
     inject(
       [AuthService, HttpTestingController],
       (authService: AuthService, backend: HttpTestingController) => {
-        authService.onLogin('test@example.com', 'wrongPassword').subscribe(
+        const user = new User('test@example.com', 'wrongPassword');
+        authService.onLogin(user).subscribe(
           (data: any) => {
             expect(data.success).toBe(false);
             expect(data.message).toBe('email and password combination is wrong');

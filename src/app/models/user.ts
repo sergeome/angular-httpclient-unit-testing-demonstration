@@ -1,13 +1,16 @@
 export class User {
-  private firstName;
-  private lastName;
+  private email: string;
+  private password: string;
 
-  constructor(firstName, lastName) {
-    this.firstName = firstName;
-    this.lastName = lastName;
+  constructor(email: string, password: string) {
+    this.email = email;
+    this.password = password;
   }
 
-  public getFullName() {
-    return this.firstName + ' ' + this.lastName;
+  public toJson() {
+    return {
+      email: this.email,
+      password: this.password
+    };
   }
 }
